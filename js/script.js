@@ -21,6 +21,16 @@ async function fetchAPIData(endpoint) {
     return data;
 }
 
+// Highlight active link
+function highlightActiveLink() {
+    const links = document.querySelectorAll('.nav-link');
+    links.forEach((link) => {
+        if(link.getAttribute('href') === global.currentPage) {
+            link.classList.add('active');
+        }
+    })
+}
+
 // Initialize Application
 function init() {
     switch (global.currentPage) {
@@ -41,6 +51,8 @@ function init() {
             console.log('search.html');
             break;
     }
+
+    highlightActiveLink();
 }
 
 document.addEventListener('DOMContentLoaded', init);
