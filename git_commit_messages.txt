@@ -5,3 +5,7 @@ This function aims to redirect the user to the corresponding page when interacti
 Add FetchAPIData function
 
 This function attempts to fetch data from the TMDB API. After successfuly fetching data, all subsequent functions will have an endpoint for their parameters to fill the appropriate requests and display movies or shows.
+
+Add displayPopularMovies function
+
+This function displays the popular movies on the front page of the website with the endpoint being '/movie/popular' from the TMDB API
