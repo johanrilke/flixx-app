@@ -12,11 +12,16 @@ async function fetchAPIData(endpoint) {
     const API_KEY = global.api.apiKey;
     const API_URL = global.api.apiUrl;
 
+
+    showSpinner();
+
     const response = await fetch(
         `${API_URL}${endpoint}?api_key=${API_KEY}`
     );
 
     const data = await response.json();
+
+    hideSpinner()
 
     return data;
 }
@@ -29,6 +34,16 @@ function highlightActiveLink() {
             link.classList.add('active');
         }
     })
+}
+
+// Show and hide spinner
+
+function showSpinner() {
+    document.querySelector('.spinner').classList.add('show');
+}
+
+function hideSpinner() {
+    document.querySelector('.spinner').classList.remove('show');
 }
 
 // Initialize Application
