@@ -1,0 +1,3 @@
+Add Initialize Application function for page router
+
+This function aims to redirect the user to the corresponding page when interacting with the application
