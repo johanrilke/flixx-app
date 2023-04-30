@@ -256,8 +256,6 @@ function displayBackgroundImage(type, backgroundPath) {
 async function search() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-
-    console.log(urlParams);
     
     global.search.type = urlParams.get('type');
     global.search.term = urlParams.get('search-term');
@@ -339,6 +337,8 @@ function displaySearchResults(results) {
 
         document.querySelector('#search-results').appendChild(div);
     })
+
+    displayPagination();
 }
 
 // Show Alert
@@ -349,6 +349,44 @@ function showAlert(message, className = 'error') {
     document.querySelector('#alert').appendChild(alertEl);
 
     setTimeout(() => alertEl.remove(), 3000);
+}
+
+// Display Pagination for search results
+function displayPagination() {
+    const div = document.createElement('div');
+    div.innerHTML = `
+        <div class="pagination">
+        <button class="btn btn-primary" id="prev">Prev</button>
+        <button class="btn btn-primary" id="next">Next</button>
+        <div class="page-counter">Page ${global.search.page} of ${global.search.totalPages}</div>
+        </div>
+    `;
+
+    document.querySelector('#pagination').appendChild(div);
+
+    // Disable prev button if on first page
+    if (global.search.page === 1) {
+        document.querySelector('#prev').disabled = true;
+    }
+
+    // Disable next button if on last page
+    if (global.search.page === global.search.totalPages) {
+        document.querySelector('#next').disabled = true;
+    }
+
+    // Display search results on click prev button
+    document.querySelector('#prev').addEventListener('click', async () => {
+        global.search.page--;
+        const {results, total_pages} = await searchAPIData();
+        displaySearchResults(results);
+    })
+
+    // Display search results on click next button
+    document.querySelector('#next').addEventListener('click', async () => {
+        global.search.page++;
+        const {results, total_pages} = await searchAPIData();
+        displaySearchResults(results);
+    })
 }
 
 // Make Request to seach data function
@@ -412,7 +450,7 @@ function hideSpinner() {
 
 function addCommasToNumber(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  }
+}
 
 // Initialize Application
 function init() {
