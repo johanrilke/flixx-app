@@ -1,8 +1,25 @@
 // Declare global variables
 const global = {
     currentPage: window.location.pathname,
+    api: {
+        apiKey: 'af263e97bf87c1567fa2a4b289e5228a',
+        apiUrl: 'https://api.themoviedb.org/3/',
+    }
 }
 
+// Fetch data from TMDB API
+async function fetchAPIData(endpoint) {
+    const API_KEY = global.api.apiKey;
+    const API_URL = global.api.apiUrl;
+
+    const response = await fetch(
+        `${API_URL}${endpoint}?api_key=${API_KEY}`
+    );
+
+    const data = await response.json();
+
+    return data;
+}
 
 // Initialize Application
 function init() {
