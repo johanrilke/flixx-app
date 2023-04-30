@@ -9,3 +9,12 @@ This function attempts to fetch data from the TMDB API. After successfuly fetchi
 Add displayPopularMovies function
 
 This function displays the popular movies on the front page of the website with the endpoint being '/movie/popular' from the TMDB API
+
+Add search functions
+
+This function requires a series of other functions to be defined, including
+- declaring global search variables
+- searchAPIData function that fetches the data from the TMDB API
+- showAlert function that displays error or provide user instructions
+- displaySearchResults that displays query results
+- main search function that displays related information about the search query or calls for error
