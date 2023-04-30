@@ -92,6 +92,8 @@ async function displayMovieDetails() {
 
     const movie = await fetchAPIData(`movie/${movieId}`);
 
+    displayBackgroundImage('movie', movie.backdrop_path);
+
     const div = document.createElement('div');
 
     div.innerHTML = `
@@ -162,6 +164,8 @@ async function displayShowDetails() {
 
     const show = await fetchAPIData(`tv/${showId}`);
 
+    displayBackgroundImage('tv', show.backdrop_path);
+
     const div = document.createElement('div');
 
     div.innerHTML = `
@@ -217,6 +221,28 @@ async function displayShowDetails() {
     `;
 
     document.querySelector('#show-details').appendChild(div);
+}
+
+// Display backdrop on details page
+function displayBackgroundImage(type, backgroundPath) {
+    const overlayDiv = document.createElement('div');
+    overlayDiv.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${backgroundPath})`;
+    overlayDiv.style.backgroundSize = 'cover';
+    overlayDiv.style.backgroundPosition = 'center';
+    overlayDiv.style.backgroundRepeat = 'no-repeat';
+    overlayDiv.style.height = '100vh';
+    overlayDiv.style.width = '100vw';
+    overlayDiv.style.position = 'absolute';
+    overlayDiv.style.top = '0';
+    overlayDiv.style.left = '0';
+    overlayDiv.style.zIndex = '-1';
+    overlayDiv.style.opacity = '0.1';
+
+    if (type === 'movie') {
+        document.querySelector('#movie-details').appendChild(overlayDiv);
+    } else {
+        document.querySelector('#show-details').appendChild(overlayDiv);
+    }
 }
 
 // Fetch data from TMDB API
